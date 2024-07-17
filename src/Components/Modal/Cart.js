@@ -19,6 +19,7 @@ const Cart =(props) =>{
     alert('Thanks for puschase ')
     cartContext.cartBlank()
    }
+   
 
     return (
         <Modal onClose={props.onClose}>
@@ -40,7 +41,7 @@ const Cart =(props) =>{
                 ))}
             </table>
             {/* <button onClick={props.onClose}>Close</button> */}
-            <h3 className={classes.price}>Total Amount  : ${totalamount}</h3>
+            <h3 className={classes.price}>Total Amount : ${totalamount}</h3>
             {totalamount? <button onClick={purchaseHandler} className={classes.close}>Purchase</button>:''}
             <button onClick={props.onClose}  className={classes.close}>Close</button>
 

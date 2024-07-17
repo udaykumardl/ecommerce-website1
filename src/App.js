@@ -7,6 +7,9 @@ import Banner from './Components/Banner.js/Banner';
 import Footer from './Components/Footer/Footer';
 import React, {useState} from 'react'
 import CartProvider from './Components/Context/CartProvider';
+import { BrowserRouter, Route,Routes } from 'react-router-dom';
+import About from './Components/About/About';
+
 
 function App() {
   const [cartIsShown,setCartIsShown]=useState(false)
@@ -21,11 +24,18 @@ function App() {
   return (
     <div>
       <CartProvider>
-      {cartIsShown && <Cart onClose={hideCartHandler}/>}
-      <Navbar onClick={showCartHandler}/>
-      <Banner />
-      <Store />
-      <Footer />
+        <BrowserRouter>
+        <Navbar onClick={showCartHandler}/>
+        <Banner />
+        <Routes>
+          <Route path='/' element={<Store />} />
+          <Route path='/about' element={<About />} />
+        </Routes>
+        </BrowserRouter>
+        
+        {cartIsShown && <Cart onClose={hideCartHandler}/>}
+
+        <Footer />
       </CartProvider>
     </div>
   );
