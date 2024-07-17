@@ -1,9 +1,12 @@
-import React ,{useState} from 'react'
+import React ,{useState ,useContext} from 'react'
 import classes from './Navbar.module.css'
+import CartContext from '../Context/cart-context';
 
 
 const Navbar = (props) => {
-    // const [show, setShow]=useState(false);
+     const [show, setShow]=useState(false);
+     const cartContext=useContext(CartContext);
+     let quantity= cartContext.items.length
 
   return (
     <>
@@ -15,7 +18,7 @@ const Navbar = (props) => {
         </ul>
         <div className={classes.cart}>
             <button className={classes.button} onClick={props.onClick}>Cart</button>
-            <p className={classes.p}>0</p>
+            <p className={classes.p}>{quantity}</p>
         </div>
     </nav>
     </>

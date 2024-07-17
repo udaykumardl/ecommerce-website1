@@ -6,6 +6,7 @@ import Cart from './Components/Modal/Cart';
 import Banner from './Components/Banner.js/Banner';
 import Footer from './Components/Footer/Footer';
 import React, {useState} from 'react'
+import CartProvider from './Components/Context/CartProvider';
 
 function App() {
   const [cartIsShown,setCartIsShown]=useState(false)
@@ -19,12 +20,13 @@ function App() {
   }
   return (
     <div>
-      
+      <CartProvider>
       {cartIsShown && <Cart onClose={hideCartHandler}/>}
       <Navbar onClick={showCartHandler}/>
       <Banner />
       <Store />
       <Footer />
+      </CartProvider>
     </div>
   );
 }
