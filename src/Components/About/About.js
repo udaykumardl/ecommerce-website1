@@ -1,10 +1,12 @@
 
 
+import Banner from '../Banner.js/Banner';
 import classes from './About.module.css'
 
 const About=() =>{
     return (
         <div>
+            <Banner />
             <h1 className={classes.heading}>About</h1>
             <div className={classes.maindiv}>
                 <img className={classes.image} src="https://prasadyash2411.github.io/ecom-website/img/Band%20Members.png"

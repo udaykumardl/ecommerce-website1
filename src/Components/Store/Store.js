@@ -1,6 +1,7 @@
 import React ,{useContext} from 'react'
 import classes from './Store.module.css'
 import CartContext from '../Context/cart-context'
+import Banner from '../Banner.js/Banner'
 
 const Store = () => {
     const cartContext=useContext(CartContext)
@@ -68,6 +69,8 @@ const Store = () => {
 
 
   return (
+    <>
+    <Banner />
     <div className={classes.container}>
     {productsArr.map((item) => (
       <div key={item.album} className={classes.item}>
@@ -78,6 +81,7 @@ const Store = () => {
       </div>
     ))}
   </div>
+  </>
   )
 }
 

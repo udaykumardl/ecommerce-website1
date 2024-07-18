@@ -9,6 +9,7 @@ import React, {useState} from 'react'
 import CartProvider from './Components/Context/CartProvider';
 import { BrowserRouter, Route,Routes } from 'react-router-dom';
 import About from './Components/About/About';
+import Home from './Components/Home/Home';
 
 
 function App() {
@@ -26,10 +27,11 @@ function App() {
       <CartProvider>
         <BrowserRouter>
         <Navbar onClick={showCartHandler}/>
-        <Banner />
+      
         <Routes>
           <Route path='/' element={<Store />} />
           <Route path='/about' element={<About />} />
+          <Route path='/home' element={<Home />} />
         </Routes>
         </BrowserRouter>
         
