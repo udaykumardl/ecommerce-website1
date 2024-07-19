@@ -1,25 +1,40 @@
-import React ,{useState ,useEffect,useCallback } from 'react'
+import React ,{useState ,useEffect,useCallback, useRef } from 'react'
 import classes from './MovieData.module.css'
 
 const MovieData =() =>{
     const [movies ,setMovies] =useState ([])
     const [isLoading, setIsLoading]=useState(false)
     const [error, setError]=useState(null)
+    const cancelRetryRef = useRef(false);
 
-    const fetchMoviesHandler = useCallback(async () =>{
+    const cancelHandler=()=>{
+        cancelRetryRef.current = true;
+        setIsLoading(false);
+        setError('Retrying canceled by user');
+    }
+
+    const fetchMoviesHandler = useCallback(async (retryCount=0) =>{
+        let MAX_RETRY_COUNT=5;
+        const RETRY_INTERVAL = 5000;
+
+        if (cancelRetryRef.current){
+            return;
+        }
+
         setIsLoading(true)
         setError(null);
+
         try{
           const response= await fetch('https://swapi.dev/api/films/')
           
           if(!response.ok){
-            throw new Error('Something went wrong!')
+            throw new Error('Something went wrong! Retrying...')
           }    
           const data= await response.json()
 
           const transformedMovies =data.results.map(movieData =>({
                 
-                id:movieData.edoside_id,
+                id:movieData.eposide_id,
                 title:movieData.title,
                 openingText:movieData.opening_crawl,
                 releaseDate:movieData.release_date
@@ -28,15 +43,37 @@ const MovieData =() =>{
             setMovies(transformedMovies);
             setIsLoading(false)
         }
-            catch (error) {
-                setError(error.message);
+        //     catch (error) {
+        //         setError(error.message);
+        //         if(retryCount < MAX_RETRY_COUNT){
+        //             setError(`${error.message} Retrying...`);
+        //             setTimeout(()=>{
+        //                 fetchMoviesHandler(retryCount+1)
+        //             },5000)
+        //         }
+        //     }
+        //     setIsLoading(false);
+        // }, [])
+        catch (error) {
+            setError(`${error.message} Retrying...`);
+            if (retryCount < MAX_RETRY_COUNT && !cancelRetryRef.current) {
+              setTimeout(() => {
+                fetchMoviesHandler(retryCount + 1);
+              }, RETRY_INTERVAL);
+            } else if (cancelRetryRef.current) {
+              setError('Retrying canceled by user');
+            } else {
+              setError('Something went wrong! Maximum retry attempts reached.');
             }
             setIsLoading(false);
-        }, [])
-
+          }
+        }, []);
         
     useEffect(()=>{
         fetchMoviesHandler();
+        return ()=>{
+            cancelRetryRef.current=true;
+        }
     },[fetchMoviesHandler])
 
     
@@ -44,6 +81,8 @@ const MovieData =() =>{
     return (
     <div>
         <button className={classes.button} onClick={fetchMoviesHandler}>Fetch Movie</button>
+        <button  className={classes.button}  onClick={cancelHandler}>Cancel</button>
+
             
             <div className={classes.maindiv}>
                 {!isLoading && movies.length>0 &&  movies.map((movie, index) => (
@@ -62,6 +101,7 @@ const MovieData =() =>{
                 {!isLoading && error && <p>{error}</p>}
             </div>
 
+            {/* <button onClick={cancelHandler}>Cancel</button> */}
     </div>
 
     )
