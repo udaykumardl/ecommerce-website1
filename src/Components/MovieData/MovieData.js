@@ -1,31 +1,44 @@
-import React ,{useState} from 'react'
+import React ,{useState ,useEffect,useCallback } from 'react'
 import classes from './MovieData.module.css'
 
 const MovieData =() =>{
     const [movies ,setMovies] =useState ([])
     const [isLoading, setIsLoading]=useState(false)
+    const [error, setError]=useState(null)
 
-    async function fetchMoviesHandler() {
-        try{
+    const fetchMoviesHandler = useCallback(async () =>{
         setIsLoading(true)
-        const response= await fetch('https://swapi.dev/api/films/')
-         const data= await response.json()
-       
-            const transformedMovies =data.results.map(movieData =>({
+        setError(null);
+        try{
+          const response= await fetch('https://swapi.dev/api/films/')
+          
+          if(!response.ok){
+            throw new Error('Something went wrong!')
+          }    
+          const data= await response.json()
+
+          const transformedMovies =data.results.map(movieData =>({
                 
-                    id:movieData.edoside_id,
-                    title:movieData.title,
-                    openingText:movieData.opening_crawl,
-                    releaseDate:movieData.release_date
-                }))
+                id:movieData.edoside_id,
+                title:movieData.title,
+                openingText:movieData.opening_crawl,
+                releaseDate:movieData.release_date
+            }))
 
             setMovies(transformedMovies);
             setIsLoading(false)
         }
             catch (error) {
-                console.error('Error fetching movies:', error);
+                setError(error.message);
             }
-        }
+            setIsLoading(false);
+        }, [])
+
+        
+    useEffect(()=>{
+        fetchMoviesHandler();
+    },[fetchMoviesHandler])
+
     
 
     return (
@@ -44,8 +57,9 @@ const MovieData =() =>{
                         <td><button>BUY TICKETS</button></td>
                     </div>
                 ))}
-                {!isLoading && movies.length===0 && <p>Found no movies</p>}
+                {!isLoading && movies.length===0 && !error && <p>Found no movies</p>}
                 {isLoading && <p>Loading ...</p>}
+                {!isLoading && error && <p>{error}</p>}
             </div>
 
     </div>
