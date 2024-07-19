@@ -1,5 +1,7 @@
 import React ,{useState ,useEffect,useCallback, useRef } from 'react'
 import classes from './MovieData.module.css'
+import AddNewMovie from './AddNewMovie'
+
 
 const MovieData =() =>{
     const [movies ,setMovies] =useState ([])
@@ -76,10 +78,16 @@ const MovieData =() =>{
         }
     },[fetchMoviesHandler])
 
-    
+    const addMovieHandler = (movie) => {
+        console.log('New Movie:', movie);
+        // Optionally, you can update the state to include the new movie
+        setMovies(prevMovies => [...prevMovies, { ...movie, id: Math.random().toString() }]);
+    };
+
 
     return (
     <div>
+         <AddNewMovie onAddMovie={addMovieHandler} />
         <button className={classes.button} onClick={fetchMoviesHandler}>Fetch Movie</button>
         <button  className={classes.button}  onClick={cancelHandler}>Cancel</button>
 
