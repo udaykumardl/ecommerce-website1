@@ -17,8 +17,11 @@ const Navbar = (props) => {
             <NavLink to='/'><li>Store</li></NavLink>
             <NavLink to='/about'><li>About</li></NavLink>
             <NavLink to='/contact'><li>Contact</li></NavLink>
+            
         </ul>
         <div className={classes.cart}>
+            <NavLink to='/login'><h3 className={classes.login}>Login</h3></NavLink>  
+            <h3 className={classes.login}>Logout</h3>
             <button className={classes.button} onClick={props.onClick}>Cart</button>
             <p className={classes.p}>{quantity}</p>
         </div>
