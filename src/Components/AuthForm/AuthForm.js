@@ -1,10 +1,15 @@
 import classes from './AuthForm.module.css'
-import {useState ,useRef} from 'react'
-import { NavLink } from 'react-router-dom'
+import {useState ,useRef, useContext} from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import AuthContext from '../../Store/auth-context'
 
 const AuthForm= ()=>{
+    const navigate=useNavigate()
     const emailInputRef=useRef()
     const passwordInputRef= useRef()
+
+    const authCtx= useContext(AuthContext);
+
     const [logIn, setLogIn]=useState(true);
     const [isLoading, setIsLoading]= useState(false)
 
@@ -19,7 +24,7 @@ const AuthForm= ()=>{
     const enteredEmail= emailInputRef.current.value;
     const enteredPassword= passwordInputRef.current.value;
 
-    //optionmal:Add validtion
+    //optional:Add validtion
     setIsLoading(true);
     let url;
     if(logIn){
@@ -55,10 +60,15 @@ const AuthForm= ()=>{
                     
                 })
             }
-        }).then(data=>{
-            console.log(data);
-        }).catch(err=>{
-            alert(err.message);
+        }).then((data)=>{
+            console.log(data)
+            navigate('/')
+           let idToken=data.idToken
+           console.log(idToken)
+            authCtx.login(idToken)
+          })
+          .catch((err)=>{
+            alert(err.message)
         })
 }
 

@@ -12,8 +12,7 @@ const Store = (props) => {
         cartContext.addItem(item,id)
        
     }
-   
-
+    
   return (
     <>
     <Banner />
