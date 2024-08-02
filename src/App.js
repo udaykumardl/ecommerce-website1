@@ -1,6 +1,6 @@
 
 
-import React, { useState } from 'react';
+import React, { useState ,useContext} from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar';
 import Store from './Components/Store/Store';
@@ -18,7 +18,7 @@ import NotFound from './NotFound/NotFound';
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
-  const authcontext=useState(AuthContext);
+  const authcontext=useContext(AuthContext);
 
   const showCartHandler = () => {
     setCartIsShown(true);
