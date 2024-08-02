@@ -5,7 +5,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar';
 import Store from './Components/Store/Store';
 import Cart from './Components/Modal/Cart';
-import Banner from './Components/Banner.js/Banner';
 import Footer from './Components/Footer/Footer';
 import CartProvider from './Components/Context/CartProvider';
 import About from './Components/About/About';
@@ -14,9 +13,12 @@ import ContactUs from './Components/ContactUs/ContactUs';
 import ProductDetail from './Components/ProductDetail/ProductDetail';
 import Login from './Components/AuthForm/AuthForm';
 import ChangePassword from './Components/ChangePassword/ChangePassword';
+import AuthContext from './Store/auth-context';
+import NotFound from './NotFound/NotFound';
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
+  const authcontext=useState(AuthContext);
 
   const showCartHandler = () => {
     setCartIsShown(true);
@@ -71,7 +73,8 @@ function App() {
           <Route path='/contact' element={<ContactUs />} />
           <Route path='/products/:productId' element={<ProductDetail productsArr={productsArr} />} />
           <Route path='/login' element={<Login />}/>
-          <Route path='/password' element={<ChangePassword/>}/>
+          {authcontext.isLoggedIn && <Route path='/password' element={<ChangePassword/>}/>}
+          <Route path='*' element={<NotFound />}/>
         </Routes>
         {cartIsShown && <Cart onClose={hideCartHandler} />}
         <Footer />
