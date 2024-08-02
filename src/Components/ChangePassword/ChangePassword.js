@@ -32,8 +32,6 @@ const ChangePassword=()=>{
             } else {
                 throw new Error('Failed to change password');
             }
-              // Password changed successfully
-              // You might want to redirect or show a success message here
             })
             .catch(error => {
               console.error('Error changing password:', error);
