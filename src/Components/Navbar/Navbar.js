@@ -21,8 +21,8 @@ const Navbar = (props) => {
   return (
     <nav className={classes.nav}>
       <ul className={classes.list}>
-        <NavLink to='/home'><li>Home</li></NavLink>
-        <NavLink to='/'><li>Store</li></NavLink>
+        <NavLink to='/'><li>Home</li></NavLink>
+        {isLoggedIn ? <NavLink to='/store'><li>Store</li></NavLink> :<NavLink to='/login'><li>Store</li></NavLink>}
         <NavLink to='/about'><li>About</li></NavLink>
         <NavLink to='/contact'><li>Contact</li></NavLink>
         {isLoggedIn && <NavLink to='/profile'><li>Profile</li></NavLink>}
@@ -37,4 +37,4 @@ const Navbar = (props) => {
   )
 }
 
-export default Navbar
+export default Navbar;
