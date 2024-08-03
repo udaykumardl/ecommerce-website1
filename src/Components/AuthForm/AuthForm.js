@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import AuthContext from '../../Store/auth-context'
+import AuthContext from '../../Auth-Context/auth-context'
 import classes from './AuthForm.module.css'
 
 const AuthForm = () => {
@@ -54,7 +54,7 @@ const AuthForm = () => {
         })
       }
     }).then(data => {
-      authCtx.login(data.idToken)
+      authCtx.login(data.idToken,enteredEmail)
       navigate('/')
     }).catch(err => {
       alert(err.message)

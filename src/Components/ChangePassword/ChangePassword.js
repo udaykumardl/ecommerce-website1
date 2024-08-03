@@ -1,4 +1,4 @@
-import AuthContext from '../../Store/auth-context';
+import AuthContext from '../../Auth-Context/auth-context';
 import classes from './ChangePassword.module.css'
 import React ,{useRef ,useContext} from 'react';
 import { useNavigate } from 'react-router';

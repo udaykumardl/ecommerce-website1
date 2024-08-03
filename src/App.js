@@ -13,7 +13,7 @@ import ContactUs from './Components/ContactUs/ContactUs';
 import ProductDetail from './Components/ProductDetail/ProductDetail';
 import Login from './Components/AuthForm/AuthForm';
 import ChangePassword from './Components/ChangePassword/ChangePassword';
-import AuthContext from './Store/auth-context';
+import AuthContext from './Auth-Context/auth-context';
 import NotFound from './NotFound/NotFound';
 
 function App() {

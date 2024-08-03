@@ -1,15 +1,19 @@
-import React,{useState ,useEffect} from 'react'
+import React,{useState ,useEffect,useContext} from 'react'
 
 const AuthContext= React.createContext({
     token: "",
+    email: "",
     isLoggedIn: false,
-    login: (token)=>{},
+    login: (token,email)=>{},
     logout:()=>{}
 })
 
 export const AuthContextProvider =(props)=>{
     const initialToken=localStorage.getItem("token")
+    const initialEmail=localStorage.getItem("email")
     const [token, setToken]=useState(initialToken);
+    const [email, setEmail]=useState(initialEmail);
+
     const userIsLoggedIn = !!token;
 
     useEffect(()=>{
@@ -25,9 +29,12 @@ export const AuthContextProvider =(props)=>{
         }
     },[token])
 
-    const loginHandler =()=>{
+    const loginHandler =(token, email)=>{
         setToken(token);
+        setEmail(email);
+        
         localStorage.setItem('token',token);
+        localStorage.setItem('email',email)
 
         // Optionally, you can also save the expiration time in local storage
         const expirationTime = new Date(new Date().getTime() + 5 * 60 * 1000);
@@ -36,12 +43,15 @@ export const AuthContextProvider =(props)=>{
 
     const logoutHandler= ()=>{
         setToken(null)
+        setEmail(null)
         localStorage.removeItem('token');
+        localStorage.removeItem('email')
         localStorage.removeItem('expirationTime');
     }
 
     const contextValue={
       token:token,
+      email:email,
       isLoggedIn:userIsLoggedIn,
       login:loginHandler,
       logout: logoutHandler
