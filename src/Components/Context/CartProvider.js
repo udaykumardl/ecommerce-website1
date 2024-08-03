@@ -66,7 +66,7 @@ const CartProvider = (props) => {
         const newEmail = email.replace(/[^\w\s]/gi, "");
         
         try {
-          const response = await fetch(`https://react-http-834f8-default-rtdb.firebaseio.com/cartItems/${newEmail}.json?auth=${token}`);
+          const response = await fetch(`https://react-http-9a30c-default-rtdb.firebaseio.com/cartItems/${newEmail}.json?auth=${token}`);
       
           if (!response.ok) {
             console.error('Failed to fetch cart items');
@@ -98,7 +98,7 @@ const CartProvider = (props) => {
   
     const newEmail = email.replace(/[^\w\s]/gi, "");
     try {
-      const response = await fetch(`https://react-http-834f8-default-rtdb.firebaseio.com/cartItems/${newEmail}.json`);
+      const response = await fetch(`https://react-http-9a30c-default-rtdb.firebaseio.com/cartItems/${newEmail}.json`);
       if (!response.ok) {
         console.error('Failed to fetch cart items');
         return;
@@ -111,7 +111,7 @@ const CartProvider = (props) => {
       }
       updatedItems.push(item);
   
-      await fetch(`https://react-http-834f8-default-rtdb.firebaseio.com/cartItems/${newEmail}.json`, {
+      await fetch(`https://react-http-9a30c-default-rtdb.firebaseio.com/cartItems/${newEmail}.json`, {
         method: 'PUT',
         body: JSON.stringify(updatedItems),
         headers: {
@@ -142,7 +142,7 @@ const CartProvider = (props) => {
     setItems(updatedItems); // Update the local state
 
     // Update the item list in Firebase
-    const response = await fetch(`https://react-http-834f8-default-rtdb.firebaseio.com/cartItems/${newEmail}.json`, {
+    const response = await fetch(`https://react-http-9a30c-default-rtdb.firebaseio.com/cartItems/${newEmail}.json`, {
         method: 'PUT',
         body: JSON.stringify(updatedItems),
         headers: {
@@ -158,8 +158,19 @@ const CartProvider = (props) => {
 
 
     }
-    const cartBlankHandler=()=>{
-      setItems([])
+
+    const cartBlankHandler=async()=>{
+        const email = localStorage.getItem('email');
+        const newEmail = email.replace(/[^\w\s]/gi, "");
+        let blankCart=[]
+        const response = await fetch(`https://react-http-9a30c-default-rtdb.firebaseio.com/cartItems/${newEmail}.json`, {
+          method: 'PUT',
+          body: JSON.stringify(blankCart),
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      });
+        setItems(blankCart)
     }
     let cartContext={
         items:items,

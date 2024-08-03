@@ -5,7 +5,7 @@ import CartContext from '../Context/cart-context';
 
 
 const Cart =(props) =>{
-    const cartContext =useContext(CartContext)
+    const cartContext =useContext(CartContext);
    let totalamount=0
 
    const removeItemHandler=(item, index)=>{

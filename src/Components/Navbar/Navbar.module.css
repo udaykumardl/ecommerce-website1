@@ -10,6 +10,8 @@
    flex-direction: row;
    justify-content: space-between;
    align-items: center;
+   list-style-type: none;
+
 }
 li{
     margin-right: 65px;
@@ -51,4 +53,8 @@ li{
     font-family: Georgia, 'Times New Roman', Times, serif;
     margin-right: 40px;
     cursor: pointer;
+}
+.list li a {
+    text-decoration: none; /* Remove underline from NavLink */
+    color: inherit; /* Inherit text color from parent */
 }

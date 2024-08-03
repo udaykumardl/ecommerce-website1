@@ -1,29 +1,32 @@
-.product-detail {
+.productDetail {
     max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+    margin: 20 auto;
+    padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #ffffff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.product-image {
+.productImage {
     width: 100%;
     max-height: 400px;
     object-fit: contain;
     margin-bottom: 20px;
 }
 
-.product-title {
+.productTitle {
     font-size: 24px;
     font-weight: bold;
     color: #333333;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     margin-bottom: 10px;
+    text-align: center;
 }
 
-.product-price {
+.productPrice {
     font-size: 18px;
     color: #007bff; /* You can choose your desired color */
     margin-bottom: 20px;
+    text-align: center;
 }

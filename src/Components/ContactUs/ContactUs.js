@@ -49,8 +49,8 @@ const ContactUs= () =>{
     return(
         <div>
             <h1 className={classes.heading}>Contact Us</h1>
-            <form className={classes.formcontainer} onSubmit={submitHandler}>
-                <label htmlFor='name'>Name</label>
+            <form className={classes.formContainer} onSubmit={submitHandler}>
+                <label htmlFor='name' >Name</label>
                 <input type='text' id='name' onChange={nameChangeHandler} value={name}/>
                 <label htmlFor='email'>Email:</label>
                 <input type='email' id='email' onChange={emailChangeHandler} value={email}/>

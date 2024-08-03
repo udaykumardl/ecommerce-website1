@@ -12,7 +12,7 @@ const Store = (props) => {
         cartContext.addItem(item,id)
        
     }
-    
+
   return (
     <>
     <Banner />
@@ -31,4 +31,4 @@ const Store = (props) => {
   )
 }
 
-export default Store
+export default Store;
